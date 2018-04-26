@@ -1,8 +1,6 @@
 from magicbot import AutonomousStateMachine, tunable, timed_state
-             
-from components.DriveTrain import DriveTrain
-from components.CubeMech import CubeMech
 
+from components.DriveTrain import DriveTrain
 import wpilib
                     
 class Test(AutonomousStateMachine):
@@ -12,7 +10,6 @@ class Test(AutonomousStateMachine):
     def __init__(self):
     
         self.drivetrain = DriveTrain
-        self.cubemech = CubeMech 
         self.i2c = wpilib.I2C(wpilib.I2C.Port.kOnboard, 4)       
 
     @timed_state(duration=5, first=True)

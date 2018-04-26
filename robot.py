@@ -14,12 +14,7 @@ from magicbot import MagicRobot
 from robotpy_ext.common_drivers import navx
 
 from components.DriveTrain import DriveTrain
-from components.CubeMech import CubeMech
-from components.RampMech import RampMech
-
 from common.driveControls import driveControls
-from common.armMech import armMech
-from common.shootMech import shootMech
 from common.subsystemAux import subsystemAux
 from common.driveAux import driveAux
 
@@ -29,8 +24,6 @@ class Kylo(MagicRobot):
     
     # Initialize Robot Components
     drivetrain = DriveTrain
-    cubemech = CubeMech
-    rampmech = RampMech
 
     def createObjects(self):
 
@@ -58,21 +51,8 @@ class Kylo(MagicRobot):
         # Set Drivespeed
         self.driveSpeed = 0
 
-        # Intake Motors
-        self.intakeMotor = wpilib.VictorSP(2)
-
-        # Intake Lifter
-        self.intakeLifter = wpilib.Spark(6)
-
-        # Create Cube Intake Pneumatics
+       # Create Cube Intake Pneumatics
         self.intakeSolenoid = wpilib.Solenoid(0, 2)
-
-        # Create Ramp Motors
-        self.rightRamp = wpilib.Spark(5)
-        self.leftRamp = wpilib.Spark(4)
-
-        # Create Ramp Deploy Pneumatics
-        self.rampSolenoid = wpilib.Solenoid(0, 3)
 
         # Create Timer (For Making Timed Events)
         self.timer = wpilib.Timer()
@@ -85,26 +65,20 @@ class Kylo(MagicRobot):
 
         # Set Gear in Dashboard
         wpilib.SmartDashboard.putString("Shift State", "Low Gear")
-        wpilib.SmartDashboard.putString("Cube State", "Unclamped")
 
     def teleopInit(self):
 
         # Init Drive Controls
-        DriverController = driveControls("DriveController", self.driveController, self.drivetrain, self.cubemech, self.rampmech, self.driveJoystick, .05)
-        DriveAux = driveAux("DriveAux", self.driveController, self.drivetrain, self.cubemech, self.rampmech, self.driveJoystick, .05)
+        DriverController = driveControls("DriveController", self.driveController, self.drivetrain, self.driveJoystick, .05)
+        DriveAux = driveAux("DriveAux", self.driveController, self.drivetrain, self.driveJoystick, .05)
 
-        # Init Subsystem Controls
-        ArmMech = armMech("ArmMech", self.subsystemController, self.driveJoystick, self.cubemech, self.rampmech, .1)
-        ShootMech = shootMech("ShootMech", self.subsystemController, self.driveJoystick, self.cubemech, self.rampmech, .1)
-        SubsystemAux = subsystemAux("SubsystemAux", self.subsystemController, self.driveJoystick, self.cubemech, self.rampmech, .1)
+        SubsystemAux = subsystemAux("SubsystemAux", self.subsystemController, self.driveJoystick, .1)
        
         # Start Drive Controls
         DriveAux.start()
         DriverController.start()
 
         # Start Subsystem Controls
-        ArmMech.start()
-        ShootMech.start()
         SubsystemAux.start()
         
         # Start and Reset Timer

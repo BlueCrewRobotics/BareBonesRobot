@@ -14,15 +14,14 @@ import wpilib.drive
 
 class driveControls (threading.Thread):
     
-    def __init__(self, name, driveController, drivetrain, cube, ramp, joystick, delay):
+    def __init__(self, name, driveController, drivetrain, joystick, delay):
         threading.Thread.__init__(self)
         self.name = name
         self.driveController = driveController
         self.delay = delay
         self.drivetrain = drivetrain
         self.joystick = joystick
-        self.cubemech = cube
-        self.ramp = ramp
+
         self.driveSpeed = 0
         self.turnSpeed = 0
         self.summedSpeed = 0

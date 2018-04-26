@@ -13,14 +13,12 @@ import wpilib
 import wpilib.drive
 
 class driveAux (threading.Thread):
-    def __init__(self, name, driveController, drivetrain, cube, ramp, joystick, delay):
+    def __init__(self, name, driveController, drivetrain, joystick, delay):
         threading.Thread.__init__(self)
         self.name = name
         self.drivetrain = drivetrain
         self.driveController = driveController
         self.delay = delay
-        self.cubemech = cube
-        self.ramp = ramp
 
     def run(self):
          while True:
